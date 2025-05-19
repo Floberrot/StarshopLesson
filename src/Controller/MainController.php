@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\StarshipRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -17,6 +18,7 @@ class MainController extends AbstractController
         StarshipRepository $starshipRepository,
         HttpClientInterface $client,
         CacheInterface $issLocationPool,
+        int $issLocationCacheTtl
     ): Response {
         $ships = $starshipRepository->findAll();
         $myShip = $ships[array_rand($ships)];
