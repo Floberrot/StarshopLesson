@@ -14,14 +14,12 @@ class MainController extends AbstractController
     public function homepage(
         StarshipRepository $starshipRepository,
         HttpClientInterface $client
-    ): Response
-    {
+    ): Response {
         $ships = $starshipRepository->findAll();
         $myShip = $ships[array_rand($ships)];
 
         $response = $client->request('GET', 'https://api.wheretheiss.at/v1/satellites/25544');
         $issData = $response->toArray();
-
 
         return $this->render('main/homepage.html.twig', [
             'myShip' => $myShip,
